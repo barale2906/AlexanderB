@@ -48,7 +48,9 @@ class BookController extends Controller
      */
     public function show($id)
     {
-        //
+        $book = Book::findOrFail($id);
+
+        return $book;
     }
 
     /**
@@ -60,7 +62,17 @@ class BookController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'title' => 'required|max:255',
+            'author'=>'required|max:255',
+            'publication'=>'required',
+            'review'=>'required',
+            'observations'=>'required',
+        ]);
+
+        $book = Book::find($id);
+        $book->update($request->all());
+        return $book;
     }
 
     /**
@@ -71,6 +83,8 @@ class BookController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $book = Book::destroy($id);
+        return $book;
+        
     }
 }
