@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookLoanController;
+use App\Http\Controllers\MessageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,4 +18,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::apiResource('books', BookController::class)->names('books');
-Route::apiResource('bookloans', BookLoanController::class)->names('booksloan');
+Route::apiResource('bookloans', BookLoanController::class)->names('booksloans');
+Route::apiResource('messages', MessageController::class)->names('messages');

@@ -19,4 +19,8 @@ class Book extends Model
     public function books(){
         return $this->hasMany(BookLoan::class);
     }
+
+    public function messages(){
+        return $this->hasMany(Message::class);
+    }
 }
