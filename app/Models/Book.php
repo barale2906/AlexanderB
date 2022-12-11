@@ -15,5 +15,8 @@ class Book extends Model
     const RESERVADO = 2;
     const PRESTADO = 3;
 
-    
+    // Relación uno a muchos
+    public function books(){
+        return $this->hasMany(BookLoan::class);
+    }
 }

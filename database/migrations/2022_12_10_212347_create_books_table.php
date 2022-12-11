@@ -22,7 +22,7 @@ return new class extends Migration
             $table->date('publication');
             $table->longText('review');
             $table->longText('observations');
-            $table->enum('status', [Book::DISPONIBLE, Book::RESERVADO, Book::PRESTADO]);
+            $table->enum('status', [Book::DISPONIBLE, Book::RESERVADO, Book::PRESTADO])->default(Book::DISPONIBLE);
 
             $table->timestamps();
         });
