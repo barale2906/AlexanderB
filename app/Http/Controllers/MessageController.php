@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\AnnexeResource;
 use App\Models\Message;
 use Illuminate\Http\Request;
 
@@ -14,8 +15,11 @@ class MessageController extends Controller
      */
     public function index()
     {
-        $messages = Message::all();
-        return $messages;
+        $messages = Message::included()
+                                ->filter()
+                                ->sort()
+                                ->getOrPaginate();
+        return AnnexeResource::collection($messages);
     }
 
     /**
@@ -29,11 +33,12 @@ class MessageController extends Controller
         $request->validate([
             'subject'=> 'required|max:255',
             'body'=>'required',
+            'user_id'=>'required|exists:user,id',
         ]);
 
         $message=Message::create($request->all());
 
-        return $message;
+        return AnnexeResource::make($message);
     }
 
     /**
@@ -45,7 +50,7 @@ class MessageController extends Controller
     public function show($id)
     {
         $message = Message::findOrFail($id);
-        return $message;
+        return AnnexeResource::make($message);
     }
 
     /**
@@ -59,13 +64,14 @@ class MessageController extends Controller
     {
         $request->validate([
             'subject'=> 'required|max:255',
-            'body'=>'required'
+            'body'=>'required',
+            'user_id'=>'required|exists:user,id',
         ]);
 
         $message = Message::find($id);
         $message->update($request->all());
 
-        return $message;
+        return AnnexeResource::make($message);
 
 
     }
@@ -80,6 +86,6 @@ class MessageController extends Controller
     {
         $message=Message::destroy($id);
 
-        return $message;
+        return AnnexeResource::make($message);
     }
 }

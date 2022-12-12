@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class MessageResource extends JsonResource
+class AnnexeResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,13 +14,6 @@ class MessageResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [
-            'id'=>$this->id,
-            'subject'=>$this->subject,
-            'body'=>$this->body,
-            'status'=>$this->status== 1 ? 'ABIERTO' : 'CERRADO',
-
-            'annexes'=>AnnexeResource::collection($this->whenLoaded('annexes')),
-        ];
+        return parent::toArray($request);
     }
 }

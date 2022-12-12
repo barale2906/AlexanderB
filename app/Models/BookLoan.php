@@ -12,7 +12,7 @@ class BookLoan extends Model
 
     protected $guarded = [];
 
-    protected $allowIncluded = ['messages', 'messages.user', 'bookloans', 'bookloans.user'];
+    
     protected $allowFilter = ['id', 'loanDate', 'scheduledReturnDate', 'returnDate', 'status'];
     protected $allowSort = ['id', 'loanDate', 'scheduledReturnDate', 'returnDate', 'status'];
 
