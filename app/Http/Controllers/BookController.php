@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\BookResource;
 use App\Models\Book;
 use Illuminate\Http\Request;
 
@@ -14,9 +15,12 @@ class BookController extends Controller
      */
     public function index()
     {
-        $books = Book::all();
+        $books = Book::included()
+                        ->filter()
+                        ->sort()
+                        ->getOrPaginate();
 
-        return $books;
+        return BookResource::collection($books);
     }
 
     /**
@@ -37,7 +41,7 @@ class BookController extends Controller
         
         $book = Book::create($request->all());
 
-        return $book;
+        return BookResource::make($book);
     }
 
     /**
@@ -48,9 +52,9 @@ class BookController extends Controller
      */
     public function show($id)
     {
-        $book = Book::findOrFail($id);
+        $book = Book::included()->findOrFail($id);
 
-        return $book;
+        return BookResource::make($book);
     }
 
     /**
@@ -72,7 +76,8 @@ class BookController extends Controller
 
         $book = Book::find($id);
         $book->update($request->all());
-        return $book;
+
+        return BookResource::make($book);
     }
 
     /**
@@ -84,7 +89,8 @@ class BookController extends Controller
     public function destroy($id)
     {
         $book = Book::destroy($id);
-        return $book;
+
+        return BookResource::make($book);
         
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AnnexeController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookLoanController;
 use App\Http\Controllers\MessageController;
@@ -20,3 +21,4 @@ use Illuminate\Support\Facades\Route;
 Route::apiResource('books', BookController::class)->names('books');
 Route::apiResource('bookloans', BookLoanController::class)->names('booksloans');
 Route::apiResource('messages', MessageController::class)->names('messages');
+Route::apiResource('annexes', AnnexeController::class)->names('annexes');

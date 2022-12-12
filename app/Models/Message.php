@@ -22,4 +22,9 @@ class Message extends Model
     public function book(){
         return $this->belongsTo(Book::class);
     }
+
+    // Relación uno a muchos
+    public function annexes(){
+        return $this->hasMany(Annexe::class);
+    }
 }
