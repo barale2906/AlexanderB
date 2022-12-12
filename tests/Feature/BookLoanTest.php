@@ -47,7 +47,7 @@ class BookLoanTest extends TestCase
 
      /** @test */
 
-     public function  bookLoanCreate(){
+    public function  bookLoanCreate(){
         
         $this->withoutExceptionHandling();
 
@@ -76,11 +76,11 @@ class BookLoanTest extends TestCase
         $this->assertEquals($bookLoan->returnDate, '2022-12-15');
         $this->assertEquals($bookLoan->observations, 'El usuario reservo el libro y lo entrego a tiempo');
 
-     }
+    }
 
      /** @test */
 
-     public function  bookLoanUpdate(){
+    public function  bookLoanUpdate(){
         
         $this->withoutExceptionHandling();
 
@@ -110,11 +110,11 @@ class BookLoanTest extends TestCase
         $this->assertEquals($bookloan->observations, 'El usuario reservo el libro y lo entrego a tiempo  ACTUALIZADO');
 
 
-     }
+    }
 
      /** @test */
 
-     public function  bookLoanDelete(){
+    public function  bookLoanDelete(){
         
         $this->withoutExceptionHandling();
 

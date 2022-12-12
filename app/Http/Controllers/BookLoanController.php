@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\BookLoanResource;
 use App\Models\BookLoan;
 use Illuminate\Http\Request;
 
@@ -14,9 +15,12 @@ class BookLoanController extends Controller
      */
     public function index()
     {
-        $bookLoans = BookLoan::all();
+        $bookLoans = BookLoan::included()
+                                ->filter()
+                                ->sort()
+                                ->getOrPaginate();
 
-        return $bookLoans;
+        return BookLoanResource::collection($bookLoans);
     }
 
     /**
@@ -30,11 +34,13 @@ class BookLoanController extends Controller
         $request->validate([
             'loanDate' => 'required',
             'observations' => 'required',
+            'user_id'=>'required|exists:user,id',
+            'book_id'=>'required|exists:book,id',
         ]);
 
         $bookLoan=BookLoan::create($request->all());
 
-        return $bookLoan;
+        return BookLoanResource::make($bookLoan);
     }
 
    
@@ -49,7 +55,7 @@ class BookLoanController extends Controller
     {
         $bookLoan=BookLoan::findOrFail($id);
 
-        return $bookLoan;
+        return BookLoanResource::make($bookLoan);
     }
 
     /**
@@ -63,12 +69,14 @@ class BookLoanController extends Controller
     {
         $request->validate([
             'loanDate' => 'required',
-            'observations' => 'required',
+            'observations' => 'required',            
+            'user_id'=>'required|exists:user,id',
+            'book_id'=>'required|exists:book,id',
         ]);
 
         $bookLoan=BookLoan::find($id);
         $bookLoan->update($request->all());
-        return $bookLoan;
+        return BookLoanResource::make($bookLoan);
     }
 
     /**
@@ -81,6 +89,6 @@ class BookLoanController extends Controller
     {
         $bookLoan = BookLoan::destroy($id);
 
-        return $bookLoan;
+        return BookLoanResource::make($bookLoan);
     }
 }

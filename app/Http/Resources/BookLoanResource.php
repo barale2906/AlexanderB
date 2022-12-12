@@ -14,6 +14,13 @@ class BookLoanResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id'=>$this->id,
+            'loanDate'=>$this->loanDate,
+            'scheduledReturnDate'=>$this->scheduledReturnDate,
+            'returnDate'=>$this->returnDate,
+            'observations'=>$this->observations,
+            'status'=>$this->status== 1 ? 'ABIERTO' : 'CERRADO',
+        ];
     }
 }
