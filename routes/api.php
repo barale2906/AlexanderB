@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AnnexeController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookLoanController;
 use App\Http\Controllers\MessageController;
@@ -19,8 +21,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::apiResource('users', UserController::class)->middleware('can:user')->names('users');
-Route::apiResource('books', BookController::class)->middleware('can:book')->names('books');
-Route::apiResource('bookloans', BookLoanController::class)->middleware('can:bookloan')->names('booksloans');
-Route::apiResource('messages', MessageController::class)->middleware('can:message')->names('messages');
-Route::apiResource('annexes', AnnexeController::class)->middleware('can:annexe')->names('annexes');
+Route::post('login', [LoginController::class, 'store']);
+
+Route::post('register', [RegisterController::class, 'store'])->name('register');
+/*
+Route::middleware('auth:api')->group(
+    function(){
+        Route::apiResource('users', UserController::class)->middleware('can:user')->names('users');
+        Route::apiResource('books', BookController::class)->middleware('can:book')->names('books');
+        Route::apiResource('bookloans', BookLoanController::class)->middleware('can:bookloan')->names('booksloans');
+        Route::apiResource('messages', MessageController::class)->middleware('can:message')->names('messages');
+        Route::apiResource('annexes', AnnexeController::class)->middleware('can:annexe')->names('annexes');
+    }
+);*/
+
+Route::apiResource('users', UserController::class)->names('users');
+Route::apiResource('books', BookController::class)->names('books');
+Route::apiResource('bookloans', BookLoanController::class)->names('booksloans');
+Route::apiResource('messages', MessageController::class)->names('messages');
+Route::apiResource('annexes', AnnexeController::class)->names('annexes');
+
