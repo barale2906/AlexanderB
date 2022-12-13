@@ -6,6 +6,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Storage;
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,14 +17,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        User::factory(10)->create();
+        Storage::deleteDirectory('anexos');
+        Storage::makeDirectory('anexos');
         
         $this->call([
-            
+            RoleSeeder::class,
+            UserSeeder::class,
             BookSeeder::class,
             BookLoanSeeder::class,
             MessageSeeder::class,
-            AnnexeSeeder::class,
+            //AnnexeSeeder::class,
         ]);
     }
 }
