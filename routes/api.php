@@ -4,6 +4,7 @@ use App\Http\Controllers\AnnexeController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookLoanController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::apiResource('users', UserController::class)->middleware('can:user')->names('users');
 Route::apiResource('books', BookController::class)->middleware('can:book')->names('books');
 Route::apiResource('bookloans', BookLoanController::class)->middleware('can:bookloan')->names('booksloans');
 Route::apiResource('messages', MessageController::class)->middleware('can:message')->names('messages');

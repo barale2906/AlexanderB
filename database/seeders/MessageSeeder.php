@@ -16,7 +16,7 @@ class MessageSeeder extends Seeder
      */
     public function run()
     {
-        Message::factory(50)->create()->each(function(Message $message){
+        Message::factory(10)->create()->each(function(Message $message){
             Annexe::factory(2)->create([
                 'message_id'=>$message->id,
             ]);

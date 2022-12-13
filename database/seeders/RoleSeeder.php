@@ -26,6 +26,8 @@ class RoleSeeder extends Seeder
 
         Permission::create(['name' => 'message'])->syncRoles([$admin,$user]);
 
+        Permission::create(['name' => 'user'])->syncRoles([$admin,$user]);
+
         Permission::create(['name' => 'annexe'])->syncRoles([$admin,$user]);
                 
     }
