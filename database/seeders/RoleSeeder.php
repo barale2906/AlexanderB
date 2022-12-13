@@ -18,11 +18,15 @@ class RoleSeeder extends Seeder
     public function run()
     {
         $admin = Role::create(['name' => 'admin']);
+        $user = Role::create(['name'=>'user']);
 
-        $create_post = Permission::create(['name' => 'create posts']);
-        $edit_post = Permission::create(['name' => 'edit posts']);
-        $delete_post = Permission::create(['name' => 'delete posts']);
+        Permission::create(['name' => 'book'])->assignRole($admin);
 
-        $admin->syncPermissions([$create_post, $edit_post, $delete_post]);
+        Permission::create(['name' => 'bookLoan'])->assignRole($admin);
+
+        Permission::create(['name' => 'message'])->syncRoles([$admin,$user]);
+
+        Permission::create(['name' => 'annexe'])->syncRoles([$admin,$user]);
+                
     }
 }

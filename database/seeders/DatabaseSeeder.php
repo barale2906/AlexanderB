@@ -25,8 +25,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             BookSeeder::class,
             BookLoanSeeder::class,
-            MessageSeeder::class,
-            //AnnexeSeeder::class,
+            MessageSeeder::class,            
         ]);
     }
 }

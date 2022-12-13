@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::apiResource('books', BookController::class)->names('books');
-Route::apiResource('bookloans', BookLoanController::class)->names('booksloans');
-Route::apiResource('messages', MessageController::class)->names('messages');
-Route::apiResource('annexes', AnnexeController::class)->names('annexes');
+Route::apiResource('books', BookController::class)->middleware('can:book')->names('books');
+Route::apiResource('bookloans', BookLoanController::class)->middleware('can:bookloan')->names('booksloans');
+Route::apiResource('messages', MessageController::class)->middleware('can:message')->names('messages');
+Route::apiResource('annexes', AnnexeController::class)->middleware('can:annexe')->names('annexes');
