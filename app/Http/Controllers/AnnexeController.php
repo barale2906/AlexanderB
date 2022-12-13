@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\AnnexeResource;
+use App\Models\Annexe;
+use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AnnexeController extends Controller
 {
@@ -13,7 +17,9 @@ class AnnexeController extends Controller
      */
     public function index()
     {
-        //
+        $annexes=Annexe::all();
+
+        return AnnexeResource::collection($annexes);
     }
 
     /**
@@ -24,7 +30,21 @@ class AnnexeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'file'=>'required|max:2048',
+            'message_id'=>'required|exists:messages,id'
+        ]);
+
+        $anexos=$request->file('file')->store('public/anexos');
+
+        $url=Storage::url($anexos);
+
+        $annexe = Annexe::create([
+            'route'=>$url,
+            'message_id'=>$request->message_id,
+        ]);
+
+        return AnnexeResource::make($annexe);
     }
 
     /**

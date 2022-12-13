@@ -14,6 +14,10 @@ class AnnexeResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id'=>$this->id,
+            'route'=>$this->route,
+            'message_id'=>$this->message_id,
+        ];
     }
 }
